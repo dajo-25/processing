@@ -1,3 +1,2 @@
 # processing
-This repository is used to storage processing files.
-Caca
+This repository was created to work on processing projects from different computers.
