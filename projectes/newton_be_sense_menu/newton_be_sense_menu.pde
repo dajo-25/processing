@@ -1,6 +1,8 @@
 String[] imFiles = {"fondo.png", "manzana.png", "newtonfeliz.png", "newtontriste.png", "cartell.png", "jugar1.png", "jugar2.png","tauladepuntuacio.png", "tornaajugar1.png", "tornaajugar2.png","manzanadorada.png","manzanavelocidad.png"};
 PImage[] im =new PImage[13];                                           //numero d'imatges
 
+final float baseNewtonVelocity = 2.5;
+
 int duraciojoc=30;
 int jugar=0;
 int rectX=20; //mida rectangle x
@@ -9,7 +11,7 @@ float nX=200-10;  //posició horitzontal newton
 int nY=0;         //posició vertical newton
 float aY=20;      //posició vertical poma
 int aX=200;       //posició horitzontal poma
-float nV=4.5;     //velocitat newton
+float nV=baseNewtonVelocity;     //velocitat newton
 float agY=20;      //posició vertical poma groga
 int agX=200;       //posició horitzontal poma groga
 float abY=20;      //posició vertical poma blava
@@ -47,6 +49,9 @@ void setup(){
 }
 
 void draw(){
+  
+  readProcessInput();
+  correctBoundaries();
   
   vaiven=vaiven+coeficient;
   if (vaiven>20){
@@ -182,16 +187,16 @@ void draw(){
  }
  if(temporitzador2>0){
    temporitzador2=temporitzador2+segons2;
-   nV=9;
+   nV=baseNewtonVelocity*2;
  }
  if (temporitzador2>0 && temporitzador2<700){
-   nV=9;
+   nV=baseNewtonVelocity*2;
  }
  if (temporitzador2>700){            //duració de la velocitat
    segons2=0;
    temporitzador2=0;
    cebador2=0;
-   nV=4.5;
+   nV=baseNewtonVelocity;
                                                    //estat de velocitat
    }
 
@@ -275,20 +280,17 @@ void draw(){
  fill(30);
  text("Puntuació: "+ p, 3* width/4, 20);
  }
- 
-void keyPressed(){
-  if(keyCode == RIGHT){
-   nX=nX+nV;
+
+void readProcessInput(){
+  if(dDown){
+    nX=nX+nV;
   }
-  if(keyCode == LEFT){
-   nX=nX-nV; 
+  if(aDown){
+    nX=nX-nV;
   }
-  if(key=='d' || key== 'D'){
-   nX=nX+nV;
-  }
-  if(key=='a' || key== 'A'){
-   nX=nX-nV;
-  }
+}
+
+void correctBoundaries(){
   if(nX<0){
    nX=nV;
   }
