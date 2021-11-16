@@ -1,5 +1,3 @@
- 
-  
   
   int contador = 0;
   int cd = 0;
